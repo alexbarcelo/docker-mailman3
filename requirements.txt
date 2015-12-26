@@ -1,0 +1,2 @@
+mailman==3.0
+psycopg2
