@@ -9,8 +9,8 @@ MAINTAINER Alex Barcelo <alex.barcelo@gmail.com>
 RUN groupadd -r mailman --gid=999 && useradd -r -g mailman --uid=999 mailman
 
 # grab gosu for easy step-down from root
-RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture)"
-	&& chmod +x /usr/local/bin/gosu \
+RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture)" \
+	&& chmod +x /usr/local/bin/gosu
 
 ########################################
 # Proceed to prepare the mailman stuff #
