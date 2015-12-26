@@ -47,12 +47,18 @@ EOF
 if [ "$1" = 'start' ]; then
 	# Main run behaviour, which is done directly to the master
 	# because we want it in the foreground, not background
-	exec master "$@"
+	exec gosu mailman master "$@"  # note that mailman is the user, master the command
 fi
 
-for word in "help aliases conf create import21 info inject lists members qfile remove reopen restart shell status stop unshunt version withlist" ; do
-	if [ "$1" = $word ] ; then
-		exec mailman "$@"
+if [ "$1" = 'stop' ] ; then
+	# This is not allowed
+	echo "Docker does not support `stop`"
+	exit 2
+fi
+
+for word in "help aliases conf create import21 info inject lists members qfile remove reopen restart shell status unshunt version withlist" ; do
+	if [ "$1" = "$word" ] ; then
+		gosu mailman exec mailman "$@"
 	fi
 done
 
