@@ -29,7 +29,7 @@ in order to adapt it to your needs
   - __POSTGRES_PASSWORD__ The password for the Postgres database. It 
   defaults to `postgres`, but please change it specially in deployment.
   
-  - __POSTGRES_DATABASE__ The database that mailman will use. It 
+  - __POSTGRES_DB__ The database that mailman will use. It 
   defaults to `mailman`. Of course, the __POSTGRES_USER__ should have 
   been granted full permission to this database.
   

@@ -33,6 +33,7 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD postgres
+ENV POSTGRES_DB mailman
 ENV POSTGRES_HOST postgres
 ENV POSTGRES_PORT 5432
 

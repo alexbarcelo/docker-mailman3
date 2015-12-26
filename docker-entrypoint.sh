@@ -19,7 +19,7 @@ configuration: /etc/hyperkitty.cfg
 
 [database]
 class: mailman.database.postgresql.PostgreSQLDatabase
-url: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+url: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
 
 [mta]
 incoming: mailman.mta.postfix.LMTP
