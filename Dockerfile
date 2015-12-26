@@ -21,6 +21,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 ########################################
 # Proceed to prepare the mailman stuff #
 ########################################
+RUN mkdir /opt/mailman
+RUN chown mailman:mailman /opt/mailman
+
 # Install some extras required for psycopg2 (Postgres Python wrapper)
 RUN apt-get update && apt-get install -y \
                 postgresql-client libpq-dev \
