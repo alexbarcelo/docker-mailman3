@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.4
 
 MAINTAINER Alex Barcelo <alex.barcelo@gmail.com>
 
