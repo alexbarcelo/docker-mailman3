@@ -6,7 +6,7 @@ MAINTAINER Alex Barcelo <alex.barcelo@gmail.com>
 # Prepare the user mailman, which will run the commands #
 #########################################################
 # explicitly set user/group IDs
-RUN groupadd -r postgres --gid=999 && useradd -r -g postgres --uid=999 postgres
+RUN groupadd -r mailman --gid=999 && useradd -r -g mailman --uid=999 mailman
 
 # grab gosu for easy step-down from root
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
@@ -21,10 +21,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 ########################################
 # Proceed to prepare the mailman stuff #
 ########################################
-# Mailman developers recommend that path, although it is quite irrelevant in a docker
-RUN mkdir -p /opt/mailman
-WORKDIR /opt/mailman
-
 # Install some extras required for psycopg2 (Postgres Python wrapper)
 RUN apt-get update && apt-get install -y \
                 postgresql-client libpq-dev \
@@ -32,8 +28,8 @@ RUN apt-get update && apt-get install -y \
         --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # Python requirements
-COPY requirements.txt /opt/mailman/
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /
+RUN pip install --no-cache-dir -r /requirements.txt
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
@@ -50,5 +46,6 @@ ENV HYPERKITTY_HOST hyperkitty
 ENV HYPERKITTY_PORT 8000
 ENV HYPERKITTY_ARCHIVER_API_KEY hyperkitty
 
-EXPOSE 2500
+EXPOSE 8024
+EXPOSE 8001
 CMD ["start"]

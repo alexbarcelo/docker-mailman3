@@ -1,3 +1,4 @@
+
 # Mailman 3 container
 
 This Docker attempts to provide a simple standalone container for
@@ -8,6 +9,14 @@ archiver.
 If you intend to tweak a lot the set up, then it may be a good idea 
 to fork the [GitHub project](https://github.com/alexbarcelo/docker-mailman)
 in order to adapt it to your needs
+
+## Setup Assumptions 
+
+  1. The Mailman Core will run standalone.
+  
+  2. Postfix will be used as the MTA.
+  
+  3. HyperKitty will be the one and only archiver.
 
 ## Environment Variables
 
@@ -43,7 +52,24 @@ in order to adapt it to your needs
   
   - __HYPERKITTY_ARCHIVER_API_KEY__ The HyperKitty's archiver API key.
   Defaults to `hyperkitty`.
+  
+  - __MAILMAN_HOST__ The host that Postfix should use in order to 
+  connect to this container, for the LMTP. Note that the port used
+  for LMTP is 8024. Defaults to `mailman`.
+  
+  - __POSTFIX_HOST__ Postfix host for mail sending. Defaults to `postfix`.
+  
+  - __POSTFIX_PORT__ Postfix port, defaults to `25`.
 
 Remember that the defaults are here for testing for convenience, but in
 most deployments they should be changed, specially the __*_USER__ and 
 __*_PASSWORD__ environment variables.
+
+## Postfix settings
+
+Be sure to read the [official documentation](http://mailman.readthedocs.org/en/release-3.0/src/mailman/docs/MTA.html#postfix).
+
+The //Transport maps// will be available at the `/var/data/` inside the
+container, so it will be a good idea to set the docker to mount this 
+folder to the host. Remember that those files will be updated when
+lists are changed, so copying it is not a good approach.
