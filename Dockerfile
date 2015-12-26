@@ -38,5 +38,17 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD postgres
+ENV POSTGRES_HOST postgres
+ENV POSTGRES_PORT 5432
+
+ENV MAILMAN_ADMIN_USER mailman
+ENV MAILMAN_ADMIN_PASSWORD mailman
+
+ENV HYPERKITTY_HOST hyperkitty
+ENV HYPERKITTY_PORT 8000
+ENV HYPERKITTY_ARCHIVER_API_KEY hyperkitty
+
 EXPOSE 2500
 CMD ["start"]

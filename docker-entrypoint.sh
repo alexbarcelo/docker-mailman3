@@ -26,7 +26,7 @@ hostname: localhost
 port: 8001
 use_https: no
 admin_user: ${MAILMAN_ADMIN_USER}
-admin_pass: ${MAILMAN_ADMIN_PASS}
+admin_pass: ${MAILMAN_ADMIN_PASSWORD}
 EOF
 
 envsubst << EOF > /etc/hyperkitty.cfg
