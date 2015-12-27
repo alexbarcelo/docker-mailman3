@@ -61,7 +61,7 @@ executed as the `ENTRYPOINT`.
   - __HYPERKITTY_ARCHIVER_API_KEY__ The HyperKitty's archiver API key.
   Defaults to `hyperkitty`.
   
-  - __MAILMAN_HOST__ The host that Postfix should use in order to 
+  - __MAILMAN_HOST_FOR_POSTFIX__ The host that Postfix should use in order to 
   connect to this container, for the LMTP. Note that the port used
   for LMTP is 8024. Defaults to `mailman`.
   

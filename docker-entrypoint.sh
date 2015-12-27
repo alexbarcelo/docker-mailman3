@@ -24,7 +24,7 @@ url: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRE
 [mta]
 incoming: mailman.mta.postfix.LMTP
 outgoing: mailman.mta.deliver.deliver
-lmtp_host: ${MAILMAN_HOST}
+lmtp_host: ${MAILMAN_HOST_FOR_POSTFIX}
 lmtp_port: 8024
 smtp_host: ${POSTFIX_HOST}
 smtp_port: ${POSTFIX_PORT}
