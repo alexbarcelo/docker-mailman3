@@ -24,14 +24,14 @@ url: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRE
 [mta]
 incoming: mailman.mta.postfix.LMTP
 outgoing: mailman.mta.deliver.deliver
-lmtp_host: 0.0.0.0
+lmtp_host: `hostname`
 lmtp_port: 8024
 smtp_host: ${POSTFIX_HOST}
 smtp_port: ${POSTFIX_PORT}
 configuration: python:mailman.config.postfix
 
 [webservice]
-hostname: `hostname`
+hostname: 0.0.0.0
 port: 8001
 use_https: no
 admin_user: ${MAILMAN_ADMIN_USER}
