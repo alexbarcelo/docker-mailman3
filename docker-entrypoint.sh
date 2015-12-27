@@ -28,6 +28,7 @@ lmtp_host: ${MAILMAN_HOST_FOR_POSTFIX}
 lmtp_port: 8024
 smtp_host: ${POSTFIX_HOST}
 smtp_port: ${POSTFIX_PORT}
+configuration: python:mailman.config.postfix
 
 [webservice]
 hostname: 0.0.0.0
