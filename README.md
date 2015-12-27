@@ -134,16 +134,17 @@ are 8024 and 8001.
 
 The `mailman` user is used inside the container, with UID and GID of 999.
 This means that the `mailman-data` folder (or whatever nanme you choose)
-should have write permissions for that user.
+should have write permissions for that user. This container's entrypoint
+ensures that by performing a `chown -R ...` on initialization.
 
 Additionally, postfix should have read permissions on the files 
-generated in that folder --which in `mailman` defaults is permissions
-640 with UID=999 and GID=999. It is up to you of the mechanism in order
-to achieve this. A simple approach is to prepare a special group in the
-host machine with GID=999 and add postfix user to that group:
+generated in that folder --which in `mailman` defaults is 0640. It is 
+up to you of the mechanism in order to achieve this. A simple approach 
+is to prepare a special group in the host machine with GID=999 and add 
+postfix user to that group:
 
-    sudo addgroup --system --gid 999 mailman
-    sudo adduser postfix mailman
+    sudo addgroup --system --gid 999 docker-mailman
+    sudo adduser postfix docker-mailman
     
 However keep in mind that this is very specific to your deployment, and
 your mileage will vary.

@@ -43,10 +43,12 @@ base_url: http://${HYPERKITTY_HOST}:${HYPERKITTY_PORT}/archives
 api_key: ${HYPERKITTY_ARCHIVER_API_KEY}
 EOF
 
+chown -R mailman:mailman /opt/mailman
 
 if [ "$1" = 'start' ]; then
 	# Main run behaviour, which is done directly to the master
 	# because we want it in the foreground, not background
+	shift
 	exec gosu mailman master "$@"  # note that mailman is the user, master the command
 fi
 
