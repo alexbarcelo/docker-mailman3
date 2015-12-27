@@ -91,7 +91,7 @@ LMTP protocol. This container uses port 8024 for LMTP and publishes
 itself in this port (in the `var/data` transport maps). On the other 
 side, Mailman container expects to be able to reach a Postfix in the
 port 25. This typically means that the Postfix should have the Docker
-subnet as `mynetworks` and/or a properly configured `mydestination`.
+subnet as `mynetworks`, or some equivalent "green card".
 
 CAUTION: The `hostname` of the docker container is very important. The
 transport maps are done with the hostname of this container, and the
