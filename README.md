@@ -107,6 +107,7 @@ section __Environment Variables__ for more information about them.
     
     MAILMAN_ADMIN_USER=mailman
     MAILMAN_ADMIN_PASSWORD=mailman
+    MAILMAN_SITE_OWNER="me@example.net"
 
     HYPERKITTY_ARCHIVER_API_KEY=hyperkitty
 
@@ -122,14 +123,17 @@ Now we have a `postgres` instance running. The mailman container can be
 fired up with:
 
     docker run --name mailman-test -d -p 8024:8024 -p 8001:8001 \
-               -v mailman_var:/opt/mailman/var \
+               -v `pwd`/mailman_var:/opt/mailman/var \
                --link postgres-mailman-test:postgres \
                --env-file sample_deploy.env \
                alexbarcelo/mailman3
 
 The `mailman3` container is ready to go. The ports it is listening on
-are 8024 and 8001.
-               
+are 8024 and 8001. A folder `mailman_var` (feel free to change its
+place and its name) will contain all data used by Mailman. This includes
+the `data` subfolder (which is needed by the MTA) and also temporal 
+folders and queues used internally.
+
 ### Permissions in `mailman-data` directory
 
 The `mailman` user is used inside the container, with UID and GID of 999.
