@@ -12,6 +12,9 @@ RUN groupadd -r mailman --gid=999 && useradd -r -g mailman --uid=999 mailman
 RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture)" \
 	&& chmod +x /usr/local/bin/gosu
 
+# Fake the postmap binary, but remember that the host must update the postmap itself
+RUN cp `which true` /usr/sbin/postmap
+
 ########################################
 # Proceed to prepare the mailman stuff #
 ########################################

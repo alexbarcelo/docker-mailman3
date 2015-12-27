@@ -60,11 +60,7 @@ executed as the `ENTRYPOINT`.
   
   - __HYPERKITTY_ARCHIVER_API_KEY__ The HyperKitty's archiver API key.
   Defaults to `hyperkitty`.
-  
-  - __MAILMAN_HOST_FOR_POSTFIX__ The host that Postfix should use in order to 
-  connect to this container, for the LMTP. Note that the port used
-  for LMTP is 8024. Defaults to `mailman`.
-  
+    
   - __POSTFIX_HOST__ Postfix host for mail sending. Defaults to `postfix`.
   
   - __POSTFIX_PORT__ Postfix port, defaults to `25`.
@@ -77,10 +73,18 @@ __*_PASSWORD__ environment variables.
 
 Be sure to read the [official documentation](http://mailman.readthedocs.org/en/release-3.0/src/mailman/docs/MTA.html#postfix).
 
-The **Transport maps** will be available at the `/opt/mailman/var/data/` 
+The **Transport maps** will be available at the `/opt/mailman/var/data/`
 inside the container, so it will be a good idea to set the docker to 
-mount this folder to the host. Remember that those files will be updated 
-when lists are changed, so copying it is not a good approach.
+mount this folder to the host. 
+
+CAUTION: The container DOES NOT run the `postmap` command. Generally, 
+Mailman runs the `postmap` binary in order to update the binary form,
+but this has a lot of dependencies. The approach of this container is 
+ignore silently --by putting a mockup `postmap` equivalent to the binary
+`true` which always succeeds.
+
+You should retrieve the plain form of the transport maps and feed them
+to `postmap` in order to use them.
 
 The connection from Postfix to Mailman is prepared to be through the 
 LMTP protocol. This container uses port 8024 for LMTP and publishes 
@@ -88,6 +92,14 @@ itself in this port (in the `var/data` transport maps). On the other
 side, Mailman container expects to be able to reach a Postfix in the
 port 25. This typically means that the Postfix should have the Docker
 subnet as `mynetworks` and/or a properly configured `mydestination`.
+
+CAUTION: The `hostname` of the docker container is very important. The
+transport maps are done with the hostname of this container, and the
+LMTP service will listen to the `hostname`. If we decided to use
+`lmtp_host=0.0.0.0` then the transport maps will point to `0.0.0.0:8024`,
+which is an invalid destination. So be sure to use some sensible 
+hostname for this Mailman container and modify the `/etc/hosts` in the
+Postfix machine accordingly.
 
 You should be familiar with regular Postfix configuration when setting
 this up. There are a lot of settings, and most defaults tend to work 
@@ -122,7 +134,8 @@ testing purposes, let's include a sample server.
 Now we have a `postgres` instance running. The mailman container can be
 fired up with:
 
-    docker run --name mailman-test -d -p 8024:8024 -p 8001:8001 \
+    docker run --name mailman-test --hostname mailman-test \
+               -d -p 8024:8024 -p 8001:8001 \
                -v `pwd`/mailman_var:/opt/mailman/var \
                --link postgres-mailman-test:postgres \
                --env-file sample_deploy.env \
