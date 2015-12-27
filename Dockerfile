@@ -15,7 +15,7 @@ RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/down
 ########################################
 # Proceed to prepare the mailman stuff #
 ########################################
-RUN mkdir -p /opt/mailman/var/data
+RUN mkdir -p /opt/mailman/var
 
 # Install some extras required for psycopg2 (Postgres Python wrapper)
 RUN apt-get update && apt-get install -y \

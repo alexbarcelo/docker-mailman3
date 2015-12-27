@@ -122,7 +122,7 @@ Now we have a `postgres` instance running. The mailman container can be
 fired up with:
 
     docker run --name mailman-test -d -p 8024:8024 -p 8001:8001 \
-               -v ./mailman-data:/opt/mailman/var/data \
+               -v mailman_data:/opt/mailman/var/data \
                --link postgres-mailman-test:postgres \
                --env-file sample_deploy.env \
                alexbarcelo/mailman3
