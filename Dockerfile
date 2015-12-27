@@ -15,7 +15,7 @@ RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/down
 ########################################
 # Proceed to prepare the mailman stuff #
 ########################################
-RUN mkdir -p /opt/mailman/var
+RUN mkdir /opt/mailman
 
 # Install some extras required for psycopg2 (Postgres Python wrapper)
 RUN apt-get update && apt-get install -y \
@@ -30,7 +30,7 @@ RUN pip install --no-cache-dir -r /requirements.txt
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-VOLUME ["/opt/mailman/var/data"]
+VOLUME ["/opt/mailman/var"]
 
 
 ENV POSTGRES_USER postgres
