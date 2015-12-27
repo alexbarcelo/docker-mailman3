@@ -147,32 +147,39 @@ place and its name) will contain all data used by Mailman. This includes
 the `data` subfolder (which is needed by the MTA) and also temporal 
 folders and queues used internally.
 
-### Permissions in `mailman-data` directory
+### Permissions in Mailman `var` directory
 
 The `mailman` user is used inside the container, with UID and GID of 999.
 This means that the `mailman-data` folder (or whatever nanme you choose)
 should have write permissions for that user. This container's entrypoint
-ensures that by performing a `chown -R ...` on initialization.
+ensures that by performing a `chown -R mailman:mailman /opt/mailman` on
+initialization.
 
-Additionally, postfix should have read permissions on the files 
-generated in that folder --which in `mailman` defaults is 0640. It is 
-up to you of the mechanism in order to achieve this. A simple approach 
-is to prepare a special group in the host machine with GID=999 and add 
-postfix user to that group:
+You should ensure that your mechanism (which may be a cron or whatever)
+is able to read the transport map files and prepare them for Postfix.
 
-    sudo addgroup --system --gid 999 docker-mailman
-    sudo adduser postfix docker-mailman
-    
-However keep in mind that this is very specific to your deployment, and
+Keep in mind that this is very specific to your deployment, and
 your mileage will vary.
 
 ## About HyperKitty
 
 The HyperKitty endpoint is not described here. Instead, a container is 
-being prepared at alexbarcelo/hyperkitty.
+being prepared at [alexbarcelo/hyperkitty](https://hub.docker.com/r/alexbarcelo/hyperkitty)
+([GitHub repository](https://github.com/alexbarcelo/docker-hyperkitty)).
 
 The idea is to have a modular setting which can potentially span 
 multiple nodes. The HyperKitty service requires plenty of storage for
 archival purposes, and the Mailman service is expected to have high 
 throughput and availability. Keep that in mind when designing your own
 production deployment plan.
+
+# Clustering
+
+I have not tested the clustering capabilities of this container and the
+HyperKitty container. If the bottleneck is the input/output or the 
+network, it would seem reasonable to spawn multiple mailman containers
+and let them receive and distribute mails. However, creation of new 
+lists and race conditions under those scenarios might get messy.
+
+More knowledge on the mailman package would be required in order to 
+provide insight in this matter.
