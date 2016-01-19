@@ -31,7 +31,7 @@ smtp_port: ${POSTFIX_PORT}
 configuration: python:mailman.config.postfix
 
 [webservice]
-hostname: 0.0.0.0
+hostname: `hostname`
 port: 8001
 use_https: no
 admin_user: ${MAILMAN_ADMIN_USER}
