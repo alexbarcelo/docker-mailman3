@@ -14,7 +14,7 @@ var_dir: /opt/mailman/var
 
 [archiver.hyperkitty]
 class: mailman_hyperkitty.Archiver
-enable: yes
+enable: ${HYPERKITTY_ENABLE}
 configuration: /etc/hyperkitty.cfg
 
 [database]

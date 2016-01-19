@@ -60,6 +60,9 @@ executed as the `ENTRYPOINT`.
   
   - __HYPERKITTY_ARCHIVER_API_KEY__ The HyperKitty's archiver API key.
   Defaults to `hyperkitty`.
+  
+  - __HYPERKITTY_ENABLE__ The `enable` flag for the `[archiver.hyperkitty]`
+  configuration. Defaults to `yes`.
     
   - __POSTFIX_HOST__ Postfix host for mail sending. Defaults to `postfix`.
   
