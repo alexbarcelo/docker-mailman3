@@ -150,6 +150,10 @@ place and its name) will contain all data used by Mailman. This includes
 the `data` subfolder (which is needed by the MTA) and also temporal 
 folders and queues used internally.
 
+The API endpoint is available (for the 3.1 tag) at the URL
+http://localhost:8001/3.1 with the mailman admin username and password provided
+in the environment.
+
 ### Permissions in Mailman `var` directory
 
 The `mailman` user is used inside the container, with UID and GID of 999.
