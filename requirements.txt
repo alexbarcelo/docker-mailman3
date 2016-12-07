@@ -1,3 +1,0 @@
-mailman==3.0.1
-psycopg2==2.6.1
-mailman-hyperkitty==1.0

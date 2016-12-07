@@ -1,4 +1,4 @@
-FROM python:3.4
+FROM python:3.5
 
 MAINTAINER Alex Barcelo <alex.barcelo@gmail.com>
 
@@ -9,7 +9,7 @@ MAINTAINER Alex Barcelo <alex.barcelo@gmail.com>
 RUN groupadd -r mailman --gid=999 && useradd -r -g mailman --uid=999 mailman
 
 # grab gosu for easy step-down from root
-RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.7/gosu-$(dpkg --print-architecture)" \
+RUN curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-$(dpkg --print-architecture)" \
 	&& chmod +x /usr/local/bin/gosu
 
 # Fake the postmap binary, but remember that the host must update the postmap itself
